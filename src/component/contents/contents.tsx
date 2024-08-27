@@ -1,6 +1,6 @@
 import { QuickButtonsContext } from "@/context/quick-button-context";
 import { ReactNode, useContext, useEffect, useState } from "react";
-import InboxContent from "./inbox-content";
+import InboxContent from "./inbox/inbox-content";
 
 export default function Contents() {
   const context = useContext(QuickButtonsContext);

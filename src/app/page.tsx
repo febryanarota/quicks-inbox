@@ -2,6 +2,7 @@
 import QuickButtons from "@/component/buttons/quick-buttons";
 import Contents from "@/component/contents/contents";
 import { QuickButtonsProvider } from "@/context/quick-button-context";
+import Image from "next/image";
 
 export default function Home() {
 

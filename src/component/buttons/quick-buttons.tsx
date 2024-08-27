@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { InboxButtonClickedIcon, InboxButtonIcon, LightningButtonIcon, TaskButtonClickedIcon, TaskButtonIcon } from "../icons";
 import { QuickButtonsContext } from "@/context/quick-button-context";
+import Image from "next/image";
 
 export default function QuickButtons() {
   const context = useContext(QuickButtonsContext);
@@ -53,8 +54,8 @@ export default function QuickButtons() {
       {/* Lightning Button */}
       { activeFeature === 'none' && (
         <motion.div>
-          <button onClick={handleLightningButton}>
-            <LightningButtonIcon />
+          <button onClick={handleLightningButton} className="w-[68px] h-[68px]">
+            <Image src="/icons/lightning_button.svg" alt="" width={68} height={68}/>
           </button>
         </motion.div>
       )}
@@ -76,7 +77,7 @@ export default function QuickButtons() {
                   <p className="text-center">Task</p>
                 }
                 <button onClick={handleTaskButton}>
-                  <TaskButtonIcon />
+                  <Image src="/icons/task_button.svg" alt="" width={60} height={60}/>
                 </button>
               </div>
             )}
@@ -89,19 +90,19 @@ export default function QuickButtons() {
                   <p className="text-center">Inbox</p>
                 }
                 <button onClick={handleInboxButton}>
-                  <InboxButtonIcon />
+                  <Image src="/icons/inbox_button.svg" alt="" width={60} height={60}/>
                 </button>
               </div>
             )}
 
             {/* Feature Close Button */}
             {activeFeature !== 'none' && (
-              <div className="relative">
-                <div className="w-[68px] h-[68px] bg-primary-darkGray rounded-full -translate-y-[0.75rem] -translate-x-4"></div>
-                <button onClick={handleCloseFeature} className="absolute top-0 -translate-y-[0.75rem]">
+              <div className="relative mb-1">
+                <div className="w-[68px] h-[68px] bg-primary-darkGray rounded-full -translate-x-4"></div>
+                <button onClick={handleCloseFeature} className="absolute top-0">
                   {activeFeature === 'inbox' ? 
-                    <InboxButtonClickedIcon className="-translate-x-1"/> : 
-                    <TaskButtonClickedIcon className="-translate-x-2"/>
+                    <Image src="/icons/inbox_button_active.svg" alt="" width={68} height={68}/> : 
+                    <Image src="/icons/task_button_active.svg" alt="" width={68} height={68}/>
                   }
                 </button>
               </div>
