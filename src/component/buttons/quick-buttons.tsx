@@ -1,7 +1,6 @@
 "use client";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { InboxButtonClickedIcon, InboxButtonIcon, LightningButtonIcon, TaskButtonClickedIcon, TaskButtonIcon } from "../icons";
 import { QuickButtonsContext } from "@/context/quick-button-context";
 import Image from "next/image";
 
