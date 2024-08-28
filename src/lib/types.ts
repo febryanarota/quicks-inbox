@@ -37,3 +37,14 @@ export interface ChatRoomData {
   chat : Chat[];
 }
 
+type Label = "Important ASAP" | "Offline Meeting" | "Virtual Meeting" | "ASEP" | "Client Related" | "Self Task" | "Appointments" | "Court Related";
+
+export interface Task {
+  id: number;
+  title: string;
+  date: string;
+  description: string;
+  status: boolean;
+  labels: Label[];
+}
+

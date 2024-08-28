@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lato } from "next/font/google";
 import "./globals.css";
+import Providers from "./StoreProvider";
 
 const inter = Lato({ subsets: ["latin"], weight: ["400","700","900"] });
 
@@ -17,10 +18,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="px-[22px] bg-[#333333] overflow-hidden w-screen h-screen max-w-screen max-h-screen">
-          {children}
-
-        </div>
+        <Providers>
+          <div className="px-[22px] bg-[#333333] overflow-hidden w-screen h-screen max-w-screen max-h-screen">
+            {children}
+          </div>
+        </Providers>
       </body>
     </html>
   );
