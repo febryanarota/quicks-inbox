@@ -11,16 +11,34 @@ export default function InboxContent() {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedChat, setSelectedChat] = useState<ChatListData | null>(null);
-
-  const data: ChatListData[] = ListChat;
+  const [data, setData] = useState<ChatListData[]>([]);
     
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false); // Set isLoading to false after 3 seconds
-    }, 500);
+    setIsLoading(true);
+    const fetchData = async () => {
+      try {
+        // this is a free mock API only can be used for 50 requests per day
+        const response = await fetch("https://quicks-api.free.beeceptor.com/chat");
+        
+        // if the data is empty, use the mock data instead
+        if (!response.ok) {
+          setData(ListChat);
+          setIsLoading(false);
+          return;
+        }
 
-    return () => clearTimeout(timer);
+        const data = await response.json();
+        setData(data);
+
+      } catch {
+        setData(ListChat);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const handleSearchDivClick = () => {
@@ -84,7 +102,4 @@ export default function InboxContent() {
     </div>
   );
 }
-
-// Notes:
-// - fetching chats dapat diimplementasi lebih lanjut menjadi fetching on scroll
 

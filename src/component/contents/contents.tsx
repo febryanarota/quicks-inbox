@@ -1,6 +1,7 @@
 import { QuickButtonsContext } from "@/context/quick-button-context";
 import { ReactNode, useContext, useEffect, useState } from "react";
 import InboxContent from "./inbox/inbox-content";
+import TaskContent from "./task/task-content";
 
 export default function Contents() {
   const context = useContext(QuickButtonsContext);
@@ -11,6 +12,7 @@ export default function Contents() {
   
   const { isMenuOpen, setIsMenuOpen, activeFeature, setActiveFeature } = context;
   const [content, setContent] = useState<JSX.Element | null>(null);
+  
 
   useEffect(() => {
     switch (activeFeature) {
@@ -21,9 +23,7 @@ export default function Contents() {
         break;
       case 'task':
         setContent(
-          <div>
-            <h1>Task</h1>
-          </div>
+          <TaskContent/>
         );
         break;
       default:

@@ -54,7 +54,7 @@ export default function QuickButtons() {
       { activeFeature === 'none' && (
         <motion.div>
           <button onClick={handleLightningButton} className="w-[68px] h-[68px]">
-            <Image src="/icons/lightning_button.svg" alt="" width={68} height={68}/>
+            <Image src="/icons/lightning_button.svg" alt="" width={68} height={68} priority/>
           </button>
         </motion.div>
       )}
