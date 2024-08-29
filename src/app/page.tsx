@@ -12,6 +12,7 @@ export default function Home() {
         <div className="absolute bottom-0 right-0 w-full items-end flex flex-col justify-end">
           <Contents/>
           <QuickButtons/>
+          
         </div>
       </div>
     </QuickButtonsProvider>

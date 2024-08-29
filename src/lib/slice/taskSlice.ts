@@ -31,11 +31,11 @@ export const taskSlice = createSlice({
       state.map((task) => console.log(task.id, task.status));
     },
 
-    removePlan: (state, action) => {
+    removeTask: (state, action) => {
       return state.filter((task) => task.id !== action.payload);
     },
 
-    updatePlan: (state, action) => {
+    updateTask: (state, action) => {
       const index = state.findIndex((task) => task.id === action.payload.id);
       if (index !== -1) {
         state[index] = action.payload;
@@ -47,6 +47,6 @@ export const taskSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addTask, changeStatus, sortTask } = taskSlice.actions;
+export const { addTask, changeStatus, sortTask, removeTask } = taskSlice.actions;
 
 export default taskSlice.reducer; // EXPORT Slice reducer

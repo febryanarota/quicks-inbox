@@ -1,5 +1,4 @@
 import { Task } from "../types";
-
 export const initialTaskState : Task[] = [
   {
     id: 1,

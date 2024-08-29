@@ -1,20 +1,16 @@
-"use client";
 import { useAppDispatch } from "@/lib/hooks";
-import { changeStatus, removeTask } from "@/lib/slice/taskSlice";
-import { Task } from "@/lib/types";
+import { getLocalTimeZone, today } from "@internationalized/date";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Calendar } from "@nextui-org/calendar";
-import { getLocalTimeZone, today } from "@internationalized/date";
-import { getRemainingDays } from "@/lib/utils";
 
-export default function TaskComponent({ task }: { task: Task }) {
-  const [isExpanded, setIsExpanded] = useState(false);
+export default function NewTask() {
+  const [isExpanded, setIsExpanded] = useState(true);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [isMoreOptionsOpen, setIsMoreOptionsOpen] = useState(false);
   const [description, setDescription] = useState(
-    task.description || "No description"
+    "No description"
   );
   const defaultDate = today(getLocalTimeZone());
   let [focusedDate, setFocusedDate] = useState(defaultDate);
@@ -38,17 +34,17 @@ export default function TaskComponent({ task }: { task: Task }) {
     };
   }, [calendarRef]);
 
-  const handleCheck = () => {
-    dispatch(changeStatus(task.id));
-    setIsExpanded(false);
-  };
+  // const handleCheck = () => {
+  //   dispatch(changeStatus(task.id));
+  //   setIsExpanded(false);
+  // };
 
   return (
     <div className="flex flex-row gap-2 items-start border-b-[1px] border-primary-gray mt-[22px] pb-[22px]">
-      <button onClick={handleCheck}>
+      <button>
         <Image
           src={`${
-            task.status ? "/icons/check_box.svg" : "/icons/check_box_blank.svg"
+            "/icons/check_box_blank.svg"
           }`}
           alt=""
           width={18}
@@ -57,20 +53,14 @@ export default function TaskComponent({ task }: { task: Task }) {
       </button>
       <div className="flex flex-col grow">
         <div className="flex flex-row w-full justify-between">
-          <p
-            className={`text-sm font-bold ${
-              task.status && "line-through text-primary-gray"
-            }`}
-          >
-            {task.title}
-          </p>
+          <input type="text" className={`text-sm font-bold w-full focus:ring-0 focus:outline-primary-gray mr-5`} placeholder="Type task title"/>
           <div className="flex flex-row gap-2 text-xs">
-            {!task.status && (
+            {/* {!task.status && (
               <p className="w-fit whitespace-nowrap text-indicator-red">
                 {getRemainingDays(focusedDate.toString())} days Left
               </p>
-            )}
-            <p>{focusedDate.toString()}</p>
+            )} */}
+            <p className="whitespace-nowrap">{focusedDate.toString()}</p>
           </div>
         </div>
 
@@ -105,11 +95,8 @@ export default function TaskComponent({ task }: { task: Task }) {
                       focusedValue={focusedDate}
                       value={defaultDate}
                       onFocusChange={(date) => {
-                          setFocusedDate(date); // Update focused date
-                          if (
-                            date &&
-                            date.day !== focusedDate.day
-                          ) {
+                        setFocusedDate(date); // Update focused date
+                        if (date && date.day !== focusedDate.day) {
                           setIsCalendarOpen(false); // Close calendar only if a different day is selected
                         }
                       }}
@@ -120,13 +107,11 @@ export default function TaskComponent({ task }: { task: Task }) {
             </div>
             <div className="flex flex-row gap-3 items-start">
               <label
-                htmlFor={`descriptionTextarea-${task.id}`}
                 className="mt-2 cursor-pointer"
               >
                 <Image src="/icons/edit.svg" alt="" width={15} height={15} />
               </label>
               <textarea
-                id={`descriptionTextarea-${task.id}`}
                 className="focus:ring-0 focus:outline-primary-lightGray w-full resize-none p-1 text-sm"
                 value={description}
                 onChange={(e) => setDescription(e.currentTarget.value)}
@@ -149,7 +134,11 @@ export default function TaskComponent({ task }: { task: Task }) {
           />
         </button>
         <div className="relative w-fit h-">
-          <button  onClick={() => {setIsMoreOptionsOpen(!isMoreOptionsOpen)}}>
+          <button
+            onClick={() => {
+              setIsMoreOptionsOpen(!isMoreOptionsOpen);
+            }}
+          >
             <Image
               src="/icons/more_horizontal.svg"
               alt=""
@@ -157,19 +146,20 @@ export default function TaskComponent({ task }: { task: Task }) {
               height={20}
             />
           </button>
-          {
-            isMoreOptionsOpen &&
+          {isMoreOptionsOpen && (
             <div className="absolute right-0 bg-white border-[1px] border-primary-darkGray rounded-md text-xs pr-7 pl-1">
-              <button className="p-1 text-indicator-red" onClick={() => {
-                dispatch(removeTask(task.id))
-                setIsMoreOptionsOpen(false)
-              }}>
+              <button
+                className="p-1 text-indicator-red"
+                onClick={() => {
+                  // dispatch(removeTask(task.id));
+                  setIsMoreOptionsOpen(false);
+                }}
+              >
                 Delete
               </button>
             </div>
-          }
+          )}
         </div>
-
       </div>
     </div>
   );
